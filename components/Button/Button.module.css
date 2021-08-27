@@ -1,0 +1,15 @@
+.arrow {
+  margin: 1em 0;
+}
+
+.arrow::after {
+  display: inline-block;
+  padding-left: 8px;
+  vertical-align: text-bottom;
+  transition: 0.2s;
+  content: url("/images/icons/arrow-black.svg");
+}
+
+.arrow:hover::after {
+  transform: translateX(4px);
+}
