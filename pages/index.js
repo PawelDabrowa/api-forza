@@ -28,7 +28,7 @@ export default function Home ({ products }) {
             const { error } = await results.json()
             if (error) {
               toast({
-                position: 'bottom',
+                position: 'top-right',
                 title: 'An error occurred.',
                 description: error,
                 status: 'error',
@@ -41,7 +41,7 @@ export default function Home ({ products }) {
           <Stack maxWidth="350px" width="100%" isInline mb={8}>
             <Input
               placeholder="Search"
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              className='shadow appearance-none border rounded w-full text-gray-500 leading-tight focus:outline-none focus:shadow-outline'
               value={search}
               border="none"
               onChange={(e) => setSearch(e.target.value)}
