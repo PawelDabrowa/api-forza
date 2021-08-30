@@ -33,6 +33,7 @@ export default function Home ({ launches }) {
                     src={ launch.image.url }
                     width={500}
                     height={500}
+                    priority
                     alt=""
                   />
                 <div
@@ -57,7 +58,7 @@ export default function Home ({ launches }) {
                     Ergonimical for human body curv
                   </p>
                   <div className="w-full flex justify-between items-center">
-                    <h1 className="font-bold text-gray-500">$200</h1>
+                    <h1 className="font-bold text-gray-500">{ launch.id }</h1>
                     <button
                       className="bg-gray-700 mr-5 text-white px-3 py-1 rounded-sm shadow-md"
                     >
@@ -71,6 +72,7 @@ export default function Home ({ launches }) {
         )
       })}
     </div>
+    <button>More</button>
     </>
   )
 }
@@ -83,7 +85,12 @@ export async function getStaticProps () {
   const { data } = await client.query({
     query: gql`
     query {
-      products(search: "forza-mini-target-goal-only") {
+      products(
+          search: "forza-mini-target-goal-only"
+          currentPage: 1
+          pageSize: 4
+        )
+      {
         items {
             name
             short_description {html}
