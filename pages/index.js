@@ -1,16 +1,100 @@
-
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { Nav, TextAnimate, HeroAnimate } from '../components'
 import Image from 'next/image'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
+import {
+  Input,
+  Stack,
+  IconButton,
+  useToast
+} from '@chakra-ui/react'
+import { SearchIcon, CloseIcon } from '@chakra-ui/icons'
 
-export default function Home ({ launches }) {
-  console.log('launches', launches)
+function ButtonIncrement (props) {
+  return (
+    <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
+    <span>prev</span>
+    </button>
+  )
+}
+function ButtonDecrement (props) {
+  return (
+   <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
+   <span>next</span>
+   </button>
+  )
+}
+function Display (props) {
+  return (
+   <label style={{ marginLeft: '0.5rem' }} >{props.message}</label>
+  )
+}
+
+export default function Home ({ products }) {
+  const [search, setSearch] = useState('')
+  const [product, setProducts] = useState(products)
+  const toast = useToast()
+
+  const [counter, setCounter] = useState(1)
+  const incrementCounter = () => setCounter(counter - 1)
+  let decrementCounter = () => setCounter(counter + 1)
+  if (counter <= 0) {
+    decrementCounter = () => setCounter(1)
+  }
+
   return (
     <>
-    <Nav/>
+
+    <form
+          onSubmit={async (event) => {
+            event.preventDefault()
+            const results = await fetch('/api/SearchProducts', {
+              method: 'post',
+              body: search
+            })
+            const { products, error } = await results.json()
+            if (error) {
+              toast({
+                position: 'bottom',
+                title: 'An error occurred.',
+                description: error,
+                status: 'error',
+                duration: 5000,
+                isClosable: true
+              })
+            } else {
+              setProduct(product)
+            }
+          }}
+        >
+          <Stack maxWidth="350px" width="100%" isInline mb={8}>
+            <Input
+              placeholder="Search"
+              value={search}
+              border="none"
+              onChange={(e) => setSearch(e.target.value)}
+            ></Input>
+            <IconButton
+              colorScheme="blue"
+              aria-label="Search database"
+              icon={<SearchIcon />}
+              disabled={search === ''}
+              type="submit"
+            />
+            <IconButton
+              colorScheme="red"
+              aria-label="Reset "
+              icon={<CloseIcon />}
+              disabled={search === ''}
+              onClick={async () => {
+                setSearch('')
+                setProducts(products)
+              }}
+            />
+          </Stack>
+        </form>
     <div className="grid gap-4 grid-cols-2 container">
-      {launches.items.map(launch => {
+      {products.items.map(launch => {
         return (
           <>
           <div className="flex justify-center items-center bg-gray-100 w-full">
@@ -72,22 +156,27 @@ export default function Home ({ launches }) {
         )
       })}
     </div>
-    <button>More</button>
+    <ButtonIncrement onClickFunc={incrementCounter}/>
+      <Display message={counter}/>
+    <ButtonDecrement onClickFunc={decrementCounter}/>
     </>
   )
 }
-export async function getStaticProps () {
+export async function getStaticProps (props) {
   const client = new ApolloClient({
     uri: 'https://www.greenbowsports.co.uk/graphql/',
     cache: new InMemoryCache()
   })
+
+  const page = props.counter
+  console.log(props.counter)
 
   const { data } = await client.query({
     query: gql`
     query {
       products(
           search: "forza-mini-target-goal-only"
-          currentPage: 1
+          currentPage: 2
           pageSize: 4
         )
       {
@@ -114,11 +203,13 @@ export async function getStaticProps () {
 
   return {
     props: {
-      launches: data.products
+      products: data.products
     }
   }
 }
 
 Home.propTypes = {
-  launches: PropTypes.func
+  products: PropTypes.object,
+  onClickFunc: PropTypes.func,
+  message: PropTypes.string
 }
