@@ -18,3 +18,12 @@
 *::after {
   box-sizing: border-box;
 }
+
+.image-w {
+  min-width: 180px;
+}
+
+.container {
+  margin: 0 auto;
+  padding-top: 90px;
+}
