@@ -10,37 +10,37 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon, CloseIcon } from '@chakra-ui/icons'
 
-function ButtonIncrement (props) {
-  return (
-    <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
-    <span>prev</span>
-    </button>
-  )
-}
-function ButtonDecrement (props) {
-  return (
-   <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
-   <span>next</span>
-   </button>
-  )
-}
-function Display (props) {
-  return (
-   <label style={{ marginLeft: '0.5rem' }} >{props.message}</label>
-  )
-}
+// function ButtonIncrement (props) {
+//   return (
+//     <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
+//     <span>prev</span>
+//     </button>
+//   )
+// }
+// function ButtonDecrement (props) {
+//   return (
+//    <button style={{ marginLeft: '0.5rem' }} onClick={props.onClickFunc}>
+//    <span>next</span>
+//    </button>
+//   )
+// }
+// function Display (props) {
+//   return (
+//    <label style={{ marginLeft: '0.5rem' }} >{props.message}</label>
+//   )
+// }
 
 export default function Home ({ products }) {
   const [search, setSearch] = useState('')
-  const [product, setProducts] = useState(products)
+  // const [product, setProducts] = useState(products)
   const toast = useToast()
 
-  const [counter, setCounter] = useState(1)
-  const incrementCounter = () => setCounter(counter - 1)
-  let decrementCounter = () => setCounter(counter + 1)
-  if (counter <= 0) {
-    decrementCounter = () => setCounter(1)
-  }
+  // const [counter, setCounter] = useState(1)
+  // const incrementCounter = () => setCounter(counter - 1)
+  // let decrementCounter = () => setCounter(counter + 1)
+  // if (counter <= 0) {
+  //   decrementCounter = () => setCounter(1)
+  // }
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Home ({ products }) {
               method: 'post',
               body: search
             })
-            const { products, error } = await results.json()
+            const { error } = await results.json()
             if (error) {
               toast({
                 position: 'bottom',
@@ -62,8 +62,6 @@ export default function Home ({ products }) {
                 duration: 5000,
                 isClosable: true
               })
-            } else {
-              setProduct(product)
             }
           }}
         >
@@ -88,7 +86,7 @@ export default function Home ({ products }) {
               disabled={search === ''}
               onClick={async () => {
                 setSearch('')
-                setProducts(products)
+                // setProducts(products)
               }}
             />
           </Stack>
@@ -156,9 +154,9 @@ export default function Home ({ products }) {
         )
       })}
     </div>
-    <ButtonIncrement onClickFunc={incrementCounter}/>
+    {/* <ButtonIncrement onClickFunc={incrementCounter}/>
       <Display message={counter}/>
-    <ButtonDecrement onClickFunc={decrementCounter}/>
+    <ButtonDecrement onClickFunc={decrementCounter}/> */}
     </>
   )
 }
@@ -167,9 +165,6 @@ export async function getStaticProps (props) {
     uri: 'https://www.greenbowsports.co.uk/graphql/',
     cache: new InMemoryCache()
   })
-
-  const page = props.counter
-  console.log(props.counter)
 
   const { data } = await client.query({
     query: gql`
