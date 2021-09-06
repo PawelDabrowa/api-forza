@@ -1,22 +1,4 @@
-# How-to Magento with Next.js
-## vol.1 Getting Started
-
-[![Reacticon](https://img.youtube.com/vi/FdJAuEGVg9w/0.jpg)](https://www.youtube.com/embed/FdJAuEGVg9w)
-
-
-__📣 Note: This sample was developed before Next.js 10 and Next.js Commerce. (Update in progress)__
-
-Next.js is a minimalistic JAMstack framework; most of it is invisible to you (the developer). However, it is extensible when you need to customize and bring other third-party libraries.
-
-### What you get out of the box with Next.js
-- Pre-rendering. Static generated and server-side rendered.
-- Zero Configuration. Auto code splitting, file-system based routing, and universal rendering.
-- Static Exporting. It just happens. One command to build.
-- Fully Extensible. Complete control over Babel and Webpack. Next-plugins.
-- CSS-in-JS. Next comes with styled-jsx included, but it also works with other styling solutions.
-- Ready for Production. Optimized for a smaller build size.
-
-**⚠️ This is proof-of-concept for a Next.js project using data from Magento.**
+Author: Pawel Dabrowa
 
 ### Getting Started 
 

@@ -1,8 +1,8 @@
 {
-  "name": "magento-nextjs-starter",
+  "name": "Forza API",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Carlos A. Cabrera @fnhipster",
+  "author": "Pawel Dabrowa",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
