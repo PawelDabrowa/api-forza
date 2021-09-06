@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types'
-import '../styles/index.css'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from '~/lib/apollo-client'
+import App from '~/components/App'
+import 'reset-css'
+import '~/styles/global.css'
 
-function App ({ Component, pageProps }) {
+export default function NextApp({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState)
+
   return (
-    <ChakraProvider>
-      <Component {...pageProps}/>
-    </ChakraProvider>
+    <ApolloProvider client={apolloClient}>
+      <App>
+        <Component {...pageProps} />
+      </App>
+    </ApolloProvider>
   )
 }
-
-App.propTypes = {
-  Component: PropTypes.func,
-  pageProps: PropTypes.object
-}
-
-export default App

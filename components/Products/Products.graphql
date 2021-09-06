@@ -1,0 +1,41 @@
+#import "~/components/Price/_price_range.graphql"
+
+query ProductsQuery(
+  $pageSize: Int = 4
+  $currentPage: Int = 1
+) {
+  storeConfig {
+    id
+    product_url_suffix
+  }
+
+  products(
+    search: "forza-mini-target-goal-only"
+    pageSize: $pageSize
+    currentPage: $currentPage
+  ) {
+    page_info {
+      current_page
+      total_pages
+    }
+
+    items {
+      id
+      url_key
+      name
+      short_description {html}
+      sku
+      image {url}
+
+      thumbnail {
+        id: url
+        url
+        label
+      }
+
+      price_range {
+        ...price_range
+      }
+    }
+  }
+}
