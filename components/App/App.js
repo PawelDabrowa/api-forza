@@ -30,30 +30,6 @@ export const App = ({ children }) => {
           options={{ showSpinner: false, easing: 'ease' }}
         />
 
-        <header className={styles.header}>
-
-          <nav className={styles.categoriesWrapper}>
-            <ul className={styles.categories}>
-              {categories?.map((category) => (
-                <li key={category.id}>
-                  <Link
-                    href={{
-                      pathname: '_url-resolver',
-                      query: {
-                        pathname: `/${category.url_key + categoryUrlSuffix}`,
-                        type: 'CATEGORY',
-                      },
-                    }}
-                    as={category.url_key + categoryUrlSuffix}
-                  >
-                    <a>{category.name}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </header>
-
         <div className={styles.content}>{children}</div>
       </div>
     </React.Fragment>
