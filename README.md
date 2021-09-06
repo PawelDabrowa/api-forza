@@ -1,10 +1,3 @@
-Author: Pawel Dabrowa
-
-### Getting Started 
-
-☝️ Create a new `.env` file based on `.env.sample`, and change the value of `MAGENTO_URL` to point to your Magento instance.
-
-👌 Install dependencies by running `npm install` or `yarn install`
 
 
 ### Development Mode
